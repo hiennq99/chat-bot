@@ -79,6 +79,7 @@ function handleMessage(sender_psid, received_message) {
         response = {
             "text": `You sent the message: "${received_message.text}". Now send me an image!`
         }
+        console.log(response);
     }
 
     // Sends the response message
