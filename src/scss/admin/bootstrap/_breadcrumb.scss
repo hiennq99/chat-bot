@@ -1,0 +1,16 @@
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    padding: $breadcrumb-padding-y 0;
+    margin-bottom: $breadcrumb-margin-bottom;
+    @include font-size($breadcrumb-font-size);
+    list-style: none;
+}
+
+.breadcrumb-item-active {
+    color: $breadcrumb-active-color;
+}
+.breadcrumb-link {
+    background: none;
+    color: $green-dark !important;
+}
