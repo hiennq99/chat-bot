@@ -1,9 +1,8 @@
 import axios from 'axios';
 // import store from '@/admin/store';
-require('dotenv').config();
 //https://demo-chatbot-hiennq.herokuapp.com/
 const instance = axios.create({
-    baseURL: 'https://demo-chatbot-hiennq.herokuapp.com/' + '/api/v1',
+    baseURL: 'https://demo-chatbot-hiennq.herokuapp.com' + '/api/v1',
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json; charset=utf-8'

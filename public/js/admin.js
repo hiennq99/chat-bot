@@ -4402,9 +4402,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
  // import store from '@/admin/store';
+//https://demo-chatbot-hiennq.herokuapp.com/
 
 var instance = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
-  baseURL: "http://localhost:3333" + '/api/v1',
+  baseURL: 'https://demo-chatbot-hiennq.herokuapp.com' + '/api/v1',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json; charset=utf-8'
