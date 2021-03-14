@@ -1,8 +1,9 @@
 import axios from 'axios';
 // import store from '@/admin/store';
+require('dotenv').config();
 
 const instance = axios.create({
-    baseURL: "http://localhost:3333" + '/api/v1',
+    baseURL: process.env.APP_URL + '/api/v1',
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json; charset=utf-8'
