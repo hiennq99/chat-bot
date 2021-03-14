@@ -7,6 +7,7 @@ import A01 from '@/admin/pages/a01';
 import Login from '@/admin/pages/login';
 import Questions from '@/admin/pages/question/listQuestion';
 import Answers from '@/admin/pages/answer/listAnswer';
+import Script from '@/admin/pages/scripts/listScript';
 
 const routes = [
     {
@@ -37,7 +38,7 @@ const routes = [
             {
                 path: '/contents',
                 name: 'contents',
-                component: A01
+                component: Script
             },
 
         ]

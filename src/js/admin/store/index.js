@@ -7,6 +7,7 @@ import authenticate from './modules/authenticate';
 import display from './modules/display';
 import questions from './modules/questions'
 import answers from './modules/answers'
+import scripts from './modules/script'
 
 Vue.use(Vuex);
 Vuex.Store.prototype.$axios = axios;
@@ -18,7 +19,8 @@ const store = new Vuex.Store({
         authenticate,
         display,
         questions,
-        answers
+        answers,
+        scripts
     }
 });
 

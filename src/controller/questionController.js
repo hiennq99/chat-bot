@@ -11,7 +11,7 @@ const create = (req, res) => {
 
     // Create a question
     const newQues = new questionModel({
-        content: req.body.content,
+        question: req.body.question,
     });
 
     // Save question in the database
@@ -31,18 +31,40 @@ const create = (req, res) => {
 };
 
 const gets = (req, res) => {
-    questionModel.getAll((err, data) => {
+    questionModel.getAllQues_Ans((err, data) => {
         if (err)
             res.status(500).send({
                 code: 500,
                 message:
                     err.message || "Some error occurred while retrieving customers."
             });
-        else res.send({
-            code: 200,
-            message: 'success',
-            data
-        });
+        else {
+            console.log("question", data)
+            res.send({
+                code: 200,
+                message: 'success',
+                data
+            });
+        }
+    });
+};
+
+const getQuestion = (req, res) => {
+    questionModel.getAllQues((err, data) => {
+        if (err)
+            res.status(500).send({
+                code: 500,
+                message:
+                    err.message || "Some error occurred while retrieving customers."
+            });
+        else {
+            console.log("question", data)
+            res.send({
+                code: 200,
+                message: 'success',
+                data
+            });
+        }
     });
 };
 
@@ -128,5 +150,6 @@ module.exports = {
     gets,
     search,
     update,
-    deletes
+    deletes,
+    getQuestion
 }

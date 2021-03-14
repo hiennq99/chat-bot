@@ -51,32 +51,29 @@
       <b-modal ref="my-modal" hide-footer :title="title">
         <div>
           <div class="form-group">
-            <label for="id-Answer">Id</label>
+            <label for="id-script">Id</label>
             <input
-              type="email"
+              type="text"
               class="form-control"
-              id="id-Answer"
+              id="id-script"
               disabled
               :value="id"
             />
+          </div>
+          <div class="form-group">
+            <label for="id-content">Tên kịch bản</label>
+            <b-form-select
+              v-model="scriptSelected"
+              :options="listScript"
+            ></b-form-select>
           </div>
           <div class="form-group">
             <label for="id-content">Câu hỏi</label>
             <b-form-select
               v-model="selected"
               :options="options"
+              multiple
             ></b-form-select>
-          </div>
-          <div class="form-group">
-            <label for="id-content">Câu trả lời</label>
-            <input
-              type="email"
-              class="form-control"
-              id="id-content"
-              placeholder="Nhập câu hỏi"
-              autofocus
-              v-model="Answer"
-            />
           </div>
         </div>
         <div class="text-right">
@@ -99,11 +96,20 @@ export default {
         {
           key: "id",
           label: "id",
-          sortDirection: "desc",
         },
         {
-          key: "answer",
-          label: "Câu trả lời",
+          key: "name_script",
+          label: "Tên kịch bản",
+          class: "text-center",
+        },
+        {
+          key: "question",
+          label: "Câu hỏi",
+          class: "text-center",
+        },
+        {
+          key: "position",
+          label: "Vị trí câu hỏi",
           class: "text-center",
         },
         { key: "actions", class: "text-right" },
@@ -112,12 +118,14 @@ export default {
       currentPage: 1,
       perPage: 20,
       pageOptions: [5, 10, 15, { value: 100, text: "Show a lot" }],
-      title: "Thêm câu trả lời",
-      Answer: "",
+      title: "Thêm mới kịch bản ",
+      script: "",
       id: "",
       updateItem: true,
-      selected: 0,
+      selected: [],
       options: [{ value: null, text: "Chọn câu hỏi" }],
+      listScript: [],
+      scriptSelected: 1,
     };
   },
   computed: {
@@ -136,24 +144,26 @@ export default {
   },
   methods: {
     ...mapActions({
-      createAnswer: "answers/createAnswer",
-      updateAnswer: "answers/updateAnswer",
-      getListAnswer: "answers/getListAnswer",
-      deleteAnswer: "answers/deleteAnswer",
+      create: "scripts/create",
+      updatescript: "scripts/update",
+      getListScriptQuestion: "scripts/getListScriptQuestion",
+      deletescript: "scripts/delete",
       getListQuestion: "questions/getListQuestion",
+      getListScript: "scripts/getListScript",
     }),
     async info(item) {
-      this.Answer = item.content;
+      this.script = item.content;
       this.id = item.id;
       this.updateItem = true;
     },
     async deleteItem(item) {
-      await this.deleteAnswer(item.id);
+      await this.deletescript(item.id);
       await this.fetchData();
     },
     async fetchData() {
-      this.items = await this.getListAnswer();
+      this.items = await this.getListScriptQuestion();
       let ques = await this.getListQuestion();
+      this.listScript = await this.getListScript();
       let optionQues = [];
       optionQues.push({ value: null, text: "Chọn câu hỏi" });
       ques.forEach((element) => {
@@ -162,6 +172,15 @@ export default {
         item.text = element.question;
         optionQues.push(item);
       });
+      let opitonScript = [];
+      opitonScript.push({ value: null, text: "Chọn kịch bản" });
+      this.listScript.forEach((element) => {
+        let item = {};
+        item.value = element.id;
+        item.text = element.name_script;
+        opitonScript.push(item);
+      });
+      this.listScript = opitonScript;
       this.options = optionQues;
     },
     showModal() {
@@ -172,14 +191,14 @@ export default {
     },
     async submit() {
       if (!this.updateItem) {
-        await this.createAnswer({
-          answer: this.Answer,
-          id_question: this.selected,
+        await this.create({
+          scripts: this.scriptSelected,
+          questions: this.selected,
         });
       } else {
-        await this.updateAnswer({
+        await this.updateScript({
           id: parseInt(this.id),
-          data: { answer: this.Answer },
+          data: { script: this.script },
         });
       }
       this.hideModal();

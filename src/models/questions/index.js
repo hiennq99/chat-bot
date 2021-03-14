@@ -2,7 +2,7 @@ const sql = require("../../config/database");
 
 // constructor
 const question = function (question) {
-  this.content = question.content;
+  this.question = question.question;
 };
 
 question.create = (newquestion, result) => {
@@ -37,15 +37,24 @@ question.search = (questionId, result) => {
   });
 };
 
-question.getAll = result => {
-  sql.query("SELECT * FROM questions INNER JOIN answers ON questions.id_answer = answers.id", (err, res) => {
+question.getAllQues_Ans = result => {
+  sql.query("SELECT * FROM questions LEFT JOIN answers ON questions.id = answers.id_question", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
       return;
     }
+    result(null, res);
+  });
+};
 
-    console.log("questions: ", res);
+question.getAllQues = result => {
+  sql.query("SELECT * FROM questions", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
     result(null, res);
   });
 };
@@ -53,8 +62,8 @@ question.getAll = result => {
 question.update = (id, question, result) => {
   console.log(id)
   sql.query(
-    "UPDATE questions SET content = ? WHERE id = ?",
-    [question.content, id],
+    "UPDATE questions SET ? WHERE id = ?",
+    [question, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

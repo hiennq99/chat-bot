@@ -2,8 +2,8 @@ const sql = require("../../config/database");
 
 // constructor
 const answers = function (answers) {
-  this.id_question = answers.id_question
-  this.content = answers.content;
+  this.answer = answers.answer;
+  this.id_question = answers.id_question;
 };
 
 answers.create = (newanswers, result) => {
@@ -54,8 +54,8 @@ answers.getAll = result => {
 answers.update = (id, answers, result) => {
   console.log(id)
   sql.query(
-    "UPDATE answers SET content = ? WHERE id = ?",
-    [answers.content, id],
+    "UPDATE answers SET answer = ? WHERE id = ?",
+    [answers.answer, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

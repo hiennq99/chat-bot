@@ -53,7 +53,7 @@
           <div class="form-group">
             <label for="id-question">Id</label>
             <input
-              type="email"
+              type="text"
               class="form-control"
               id="id-question"
               disabled
@@ -61,9 +61,9 @@
             />
           </div>
           <div class="form-group">
-            <label for="id-content">Nội dung</label>
+            <label for="id-content">Câu hỏi</label>
             <input
-              type="email"
+              type="text"
               class="form-control"
               id="id-content"
               placeholder="Nhập câu hỏi"
@@ -95,8 +95,13 @@ export default {
           sortDirection: "desc",
         },
         {
-          key: "content",
-          label: "Mội dung",
+          key: "question",
+          label: "Câu hỏi",
+          class: "text-center",
+        },
+        {
+          key: "answer",
+          label: "Câu trả lời",
           class: "text-center",
         },
         { key: "actions", class: "text-right" },
@@ -112,6 +117,7 @@ export default {
       title: "Thêm câu hỏi",
       question: "",
       id: "",
+      answer: "",
       updateItem: true,
     };
   },
@@ -133,7 +139,7 @@ export default {
     ...mapActions({
       createQuestion: "questions/createQuestion",
       updateQuestion: "questions/updateQuestion",
-      getListQuestion: "questions/getListQuestion",
+      getListQuestion: "questions/getListQuestion_Ans",
       deleteQuestion: "questions/deleteQuestion",
     }),
     async info(item) {
@@ -157,11 +163,14 @@ export default {
     },
     async submit() {
       if (!this.updateItem) {
-        await this.createQuestion({ content: this.question });
+        await this.createQuestion({
+          question: this.question,
+        });
+        this.question = "";
       } else {
         await this.updateQuestion({
           id: this.id,
-          data: { content: this.question },
+          data: { question: this.question },
         });
       }
       this.hideModal();

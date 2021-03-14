@@ -14,8 +14,8 @@ const create = (req, res) => {
 
     // Create a question
     const newQues = new anwserModel({
-        id_question: req.body.id_question,
-        content: req.body.content,
+        answer: req.body.answer,
+        id_question: req.body.id_question
     });
 
     // Save question in the database
@@ -85,7 +85,7 @@ const update = (req, res) => {
     console.log(req.body);
 
     anwserModel.update(
-        req.params.id,
+        parseInt(req.params.id),
         new anwserModel(req.body),
         (err, data) => {
             if (err) {
