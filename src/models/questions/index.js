@@ -38,6 +38,7 @@ question.search = (questionId, result) => {
 };
 
 question.getAllQues_Ans = result => {
+  console.log(sql);
   sql.query("SELECT * FROM questions LEFT JOIN answers ON questions.id = answers.id_question", (err, res) => {
     if (err) {
       console.log("error: ", err);

@@ -1,8 +1,7 @@
 import axios from 'axios';
 // import store from '@/admin/store';
-//https://demo-chatbot-hiennq.herokuapp.com/
 const instance = axios.create({
-    baseURL: 'https://demo-chatbot-hiennq.herokuapp.com' + '/api/v1',
+    baseURL: process.env.APP_URL + 'api/v1',
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json; charset=utf-8'
